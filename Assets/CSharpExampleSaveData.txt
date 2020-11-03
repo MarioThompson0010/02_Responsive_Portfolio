@@ -1,0 +1,373 @@
+﻿using Newtonsoft.Json.Converters;
+using Regular_Web_Foirms.Models;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Web;
+using System.Web.Helpers;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Web.Services;
+
+namespace Regular_Web_Foirms.Controllers
+{
+
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.      
+    [System.Web.Script.Services.ScriptService]
+    public class HomeController : Controller
+    {
+        // test method
+        [WebMethod]
+        public JsonResult DudeT(int code)
+        {
+            JsonResult res = new JsonResult();
+            
+            var serializer = new JavaScriptSerializer(); // instantiate serializer             
+                       
+            string serializedstring = serializer.Serialize(5); // serliaze into JSON string  
+            res.Data = serializedstring;
+            Session["test"] = "hey";
+            string hi = (string)Session["test"];
+            return res; // return to client. 
+            
+        }
+
+       
+        [HttpPost]
+        public JsonResult NewLoginToAirBB(string stringifiedCredentials)
+        {
+            LoginClass LogClass = new LoginClass();
+            JsonResult res = new JsonResult();
+            string result = "";
+
+            CustomTypeResolver resolver = new CustomTypeResolver(
+                typeof(LoginClass));
+
+            // Instantiate the serializer.
+            JavaScriptSerializer serializer = new JavaScriptSerializer(resolver);
+
+            // object dud = 
+            var JSONObj = serializer.Deserialize<LoginClass>(stringifiedCredentials); // deserialize what you got from the screen        
+            string success = NewLoginProcedure((LoginClass)JSONObj);
+            return Json(success, JsonRequestBehavior.AllowGet);
+            //List<string> ReturnSavedIndustries = new List<string>();
+            //ReturnSavedIndustries.Add(success);
+            // string serializedstring = serializer.Serialize(ReturnSavedIndustries/*success*/); // JSON format the string           
+            //return Json(/*serializedstring*/JSONObj, JsonRequestBehavior.AllowGet);
+            // return  serializedstring; // return serialized string     
+
+        }
+
+
+        
+        [HttpPost]
+        public JsonResult LookupZipCode(string stringifiedZipCodedLogin)
+        {
+            //LoginClass LogClass = new LoginClass();
+            //JsonResult res = new JsonResult();
+            //string result = "";
+
+            CustomTypeResolver resolver = new CustomTypeResolver(
+                typeof(LoginClass));
+
+            // Instantiate the serializer.
+            JavaScriptSerializer serializer = new JavaScriptSerializer(resolver);
+
+            // object dud = 
+            var JSONObj = serializer.Deserialize<LookupZipClass>(stringifiedZipCodedLogin); // deserialize what you got from the screen        
+            List<ReturnLookupZipClass> success = ZipCodeProcedure(JSONObj);
+
+            CustomTypeResolver Returnresolver = new CustomTypeResolver(typeof(List<ReturnLookupZipClass>));
+            JavaScriptSerializer serializerReturn = new JavaScriptSerializer(Returnresolver);
+            string serializedReturn = serializerReturn.Serialize(success);
+            return Json(success, JsonRequestBehavior.AllowGet);
+            //List<string> ReturnSavedIndustries = new List<string>();
+            //ReturnSavedIndustries.Add(success);
+            // string serializedstring = serializer.Serialize(ReturnSavedIndustries/*success*/); // JSON format the string           
+            //return Json(/*serializedstring*/JSONObj, JsonRequestBehavior.AllowGet);
+            // return  serializedstring; // return serialized string     
+
+        }
+
+        public List<ReturnLookupZipClass> ZipCodeProcedure (LookupZipClass zipper)
+        {
+           List< ReturnLookupZipClass> returner = new List<ReturnLookupZipClass>();
+            string configstring = ConfigurationManager.ConnectionStrings["AirBB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(configstring))
+            {
+                SqlCommand cmd = new SqlCommand("LookupZipCodeProc", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Param1Zip", zipper.ZipCode);
+                SqlDataReader reader = null; // reader 
+                bool valuesReturned = false;
+                try
+                {
+                    con.Open();
+
+                    reader = cmd.ExecuteReader();
+                    ReturnLookupZipClass temp = null;
+                    while (reader.Read())
+                    {
+                        temp = new ReturnLookupZipClass();
+                        valuesReturned = true;
+                        temp.HomeName  = (string)reader[0];
+                        temp.Address1 = (string)reader[1];
+                        temp.Address2 = (string)reader[2];
+                        temp.City = (string)reader[3];
+                        temp.ZipCode = (string)reader[4];
+                        temp.State = (string)reader[5];
+                    }
+                    returner.Add(temp);
+                }
+                catch (Exception exception)
+                {
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+
+
+            return returner;
+        }
+
+       
+        [HttpPost]
+        public JsonResult LoginToAirBB(string stringifiedCredentials)
+        {
+            LoginClass LogClass = new LoginClass();
+            JsonResult res = new JsonResult();
+
+            CustomTypeResolver resolver = new CustomTypeResolver(
+                typeof(LoginClass));
+
+            // Instantiate the serializer.
+            JavaScriptSerializer serializer = new JavaScriptSerializer(resolver);
+
+            // object dud = 
+            var JSONObj = serializer.Deserialize<LoginClass>(stringifiedCredentials); // deserialize what you got from the screen        
+            string success = LoginProcedure((LoginClass)JSONObj);
+            return Json(success, JsonRequestBehavior.AllowGet);
+            //List<string> ReturnSavedIndustries = new List<string>();
+            //ReturnSavedIndustries.Add(success);
+            // string serializedstring = serializer.Serialize(ReturnSavedIndustries/*success*/); // JSON format the string           
+            //return Json(/*serializedstring*/JSONObj, JsonRequestBehavior.AllowGet);
+            // return  serializedstring; // return serialized string     
+
+        }
+
+        private string NewLoginProcedure(LoginClass loggin)
+        {
+
+            string successFulOrNot = "";
+            string configstring = ConfigurationManager.ConnectionStrings["AirBB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(configstring))
+            {
+                SqlCommand cmd = new SqlCommand("DoNewLoginAction", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Param1UserName", loggin.UserName);
+                cmd.Parameters.AddWithValue("@Param2Password", loggin.Password);
+
+                try
+                {
+                    con.Open();
+
+                    int rowsaffected = cmd.ExecuteNonQuery();
+                    if (rowsaffected == -1)
+                    {
+                        successFulOrNot = "Username already exists";
+                        //helptext.Add(dictOfIndustries["Industry1"]);
+                        //helptext.Add(dictOfIndustries["Industry2"]);
+                        //helptext.Add(dictOfIndustries["Industry3"]);
+                    }
+                    else
+                    {
+                        successFulOrNot = loggin.UserName;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    //helptext.Add("Failure: Could not save industries: " + exception.Message);
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+
+
+            return successFulOrNot;
+        }
+
+        private string LoginProcedure(LoginClass loggin)
+        {
+
+            string successFulOrNot = "";
+            string configstring = ConfigurationManager.ConnectionStrings["AirBB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(configstring))
+            {
+                SqlCommand cmd = new SqlCommand("DoLoginAction", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Param1UserName", loggin.UserName);
+                cmd.Parameters.AddWithValue("@Param2Password", loggin.Password);
+                SqlDataReader reader = null; // reader 
+                bool LoggedInGood = false;
+                try
+                {
+                    con.Open();
+
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string username = (string) reader[0];
+                        if (username.Contains("error logging in"))
+                        {
+                            successFulOrNot = "Username and Password may not be the same";
+                        }
+                        else
+                        {
+                            string password = (string)reader[1];
+                            LoggedInGood = true;
+                        }
+                    }
+
+                    if (LoggedInGood)
+                    {
+                        successFulOrNot = loggin.UserName;
+                    }
+                    else
+                    {
+                        if (successFulOrNot == string.Empty)
+                        {
+                            successFulOrNot = "Username does not exist";
+                        }
+                    }
+
+
+                    //if (rowsaffected == -1)
+                    //{
+                    //    successFulOrNot = "Username does not exist";
+                    //    //helptext.Add(dictOfIndustries["Industry1"]);
+                    //    //helptext.Add(dictOfIndustries["Industry2"]);
+                    //    //helptext.Add(dictOfIndustries["Industry3"]);
+                    //}
+                    //else
+                    //{
+                    //    successFulOrNot = loggin.UserName;
+                    //}
+                }
+                catch (Exception exception)
+                {
+                    //helptext.Add("Failure: Could not save industries: " + exception.Message);
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+
+
+            return successFulOrNot;
+        }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult MainPage()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        [WebMethod]
+        public ActionResult Contact()
+        {
+            BusinessLogic buslog = new BusinessLogic();
+            string gotten = buslog.GetStringGuy();
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+    }
+
+    public class LoginClass
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class LookupZipClass
+    {
+        public string ZipCode { get; set; }
+        
+    }
+
+    public class ReturnLookupZipClass
+    {
+        public string ZipCode { get; set; }
+        public int AddressCount { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string HomeName { get; set; }
+
+    }
+
+    public class CustomTypeResolver : JavaScriptTypeResolver
+    {
+        private readonly Type _allowedType;
+
+        public CustomTypeResolver(Type allowedType)
+        {
+            _allowedType = allowedType;
+        }
+
+        public override Type ResolveType(string id)
+        {
+            //if (_allowedType.FullName == id)
+            //{
+            return _allowedType;
+            //}
+
+            //throw new ArgumentException("unknown type");
+        }
+
+        public override string ResolveTypeId(Type type)
+        {
+            //if (_allowedType == type)
+            //{
+            return type.FullName;
+            //}
+
+            //throw new NotImplementedException();
+        }
+    }
+}

@@ -1,0 +1,254 @@
+@{
+    ViewBag.Title = "Home Page";
+}
+<head>
+    @Styles.Render("~/Content/LoginBBStyle.css")
+</head>
+<div class="jumbotron">
+    <h1>Air B N B</h1>
+    @*<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form>
+
+            <table>
+                <tr>
+                    <td>
+                        <label for="userName">User Name</label>
+                    </td>
+                    <td>
+                        <input type="text" id="userName" class="" name="userName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="passwordGuy">Password</label>
+                    </td>
+                    <td>
+                        <input type="text" id="passwordGuy" name="passwordGuy" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="LoginButton" type="button" value="Login and Enjoy">Login</button>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <fieldset>
+                    <legend></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button id="NewLoginButton" type="button" value="Login and Enjoy">Create New Login</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="NewUserName">User Name</label>
+                            </td>
+                            <td>
+                                <input type="text" id="NewUserName" name="NewUserName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="NewPasswordGuy">Password</label>
+                            </td>
+                            <td>
+                                <input type="text" class="" id="NewPasswordGuy" name="NewPasswordGuy" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label for="ConfirmNewPasswordGuy">Confirm Password</label>
+                            </td>
+                            <td>
+                                <input type="text" id="ConfirmNewPasswordGuy" name="ConfirmNewPasswordGuy" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </fieldset>
+            </p>
+        </form>
+
+        @*<h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>*@
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
+    </div>
+    @*<div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>*@
+    @*<div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>*@
+</div>
+@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/bootstrap")*@
+@*@RenderSection("scripts", required: false)*@
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $('#LoginButton').click(function () {
+
+            document.getElementById("userName").className = "";
+
+            var username = document.getElementById("userName"); // Get first control
+            var Valusername = username.value; // get text
+
+            var pwordGuy = document.getElementById("passwordGuy"); // Get first control
+            var ValpwordGuy = pwordGuy.value; // get text
+
+
+            var stringifiedLogin = JSON.stringify({
+                UserName: Valusername,
+                Password: ValpwordGuy
+            });
+
+            $.ajax({
+                url: '@Url.Action("LoginToAirBB")',
+                data:
+                {
+                    stringifiedCredentials: stringifiedLogin
+                }, // send data
+
+                dataType: 'json',
+                type: 'POST',
+                traditional: true,
+                async: false,
+                cache: false,
+                context: document.body,
+
+                success: function (data) { // if successful...
+                   // alert('success');
+                    //var jQueryXML = $(data);
+                    //var industries = jQueryXML.find('string').text();
+                    //var industriesParsed = JSON.parse(/*jQueryXML*/data); //JSON.parse(industries);
+
+                    if (data.includes("does not exist") ||
+                        data.includes("Username and Password may not be the same")){
+                        alert('Username does not exist. Try Create New, typing in a valid password, ' +
+                            'or try typing a username that exists');
+                        username.className = 'ErrorBorder';
+                    }
+                    else {
+                        //var name = $(this).data('userName');
+                        if (data) {
+                            var url = '@Url.Action("MainPage", "Home", new { username = "__id__" })';
+                            window.location.href = url.replace('__id__', data);
+                        }
+                    }
+                },
+                error: function (data, errormessage1, err2) {
+                    var i = 0;
+                    alert("there was an error");
+                }
+
+            })
+        })
+
+
+
+
+        $('#NewLoginButton').click(function () {
+            document.getElementById("NewPasswordGuy").className = "";
+
+
+            let Newusername = document.getElementById("NewUserName"); // Get first control
+            let ValNewusername = Newusername.value; // get text
+            ValNewusername = ValNewusername.trim();
+
+            let NewpwordGuy = document.getElementById("NewPasswordGuy"); // Get first control
+            let ValNewpwordGuy = NewpwordGuy.value; // get text
+            ValNewpwordGuy = ValNewpwordGuy.trim();
+
+            var ConfirmpwordGuy = document.getElementById("ConfirmNewPasswordGuy"); // Get first control
+            let ValConfirmpwordGuy = ConfirmpwordGuy.value; // get text
+            ValConfirmpwordGuy = ValConfirmpwordGuy.trim();
+
+            if (ValConfirmpwordGuy != '' && ValNewpwordGuy != '' && ValNewusername != '') {
+                if (ValNewpwordGuy == ValConfirmpwordGuy) {
+                    // test for valid password
+                    var lowerCase = /[a-z]+/;
+                    var uppercase = /[A-Z]+/;
+                    var numbercase = /[0-9]+/
+                    var lengthcase = /.{5,50}/;
+                    // /^(?=.*Tim)(?=.*stupid).+/
+                    var all = /(?=.*(?=.*[a-z])+(?=.*[A-Z])+(?=.*[0-9])+).{5,50}/;
+                    var testerguy = all.test(pwordGuy);
+
+                    if (testerguy) {
+                        var stringifiedLogin = JSON.stringify({
+                            UserName: username,
+                            Password: pwordGuy
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("NewLoginToAirBB")',
+                            data:
+                            {
+                                stringifiedCredentials: stringifiedLogin
+                            }, // send data
+
+                            dataType: 'json',
+                            type: 'POST',
+                            traditional: true,
+                            async: false,
+                            cache: false,
+                            context: document.body,
+
+                            success: function (data) { // if successful...
+                                //var jQueryXML = $(data);
+                                //var industries = jQueryXML.find('string').text();
+                                //var industriesParsed = JSON.parse(/*jQueryXML*/data); //JSON.parse(industries);
+
+                                if (data.includes("already exists")) {
+                                    alert('Username aleady exists');
+                                }
+                                else {
+                                    //var name = $(this).data('userName');
+                                    if (data) {
+                                        var url = '@Url.Action("MainPage", "Home", new { username = "__id__" })';
+                                        window.location.href = url.replace('__id__', data);
+                                    }
+                                }
+                            },
+                            error: function (data, errormessage1, err2) {
+                                var i = 0;
+                            }
+
+                        })
+                    }
+                    else {
+                        alert("The password must have at least one lowercase character, one upper case " +
+                            "character, one numeral, and be between 5 and 50 characters long.");
+                    }
+                }
+                else {
+                    alert("Passwords must be the same");
+                    NewpwordGuy.className = "ErrorBorder";
+                }
+            }
+            else {
+                alert("All controls must be filled in");
+            }
+        })
+    });
+</script>

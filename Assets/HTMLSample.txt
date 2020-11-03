@@ -1,0 +1,328 @@
+HTML sample, index.html
+This was done without cards.  I used Boostrap's grid system.
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
+
+<body class="container">
+    <nav class="navbar navbar-expand-md   navbar-light bg-light">
+        <a class="navbar-brand bg-info text-white" href="index.html">Mario Thompson</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myAwesomeInfo"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="myAwesomeInfo">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-item active" href="portfolio.html">Portfolio</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="view"
+        style="background-image: url('lightbackground.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+        <div class="row ml-4 mt-5">
+            <div class="col-12 col-md-8">
+                <div style="background-color: white;">
+                    <div class="row mt-5 p-2">
+                        <div class="col-12">
+                            <h1 class="mt-3">
+                                About Me
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+
+
+                        <div class="col-12">
+                            <img src="Resume Photo.jpg" class="img img-thumbnail float-left mr-3">
+                            <div>
+                                Having just finished a little stint as an enlisted guy in the Army,
+                                I began my Computer Science career. This was good since I had spent a lot of money
+                                on a Computer Science degree. I had a great job at DHI Computing Services, where I
+                                worked for the best managers ever: Mark Benson, Dave Harris, Jessie Jarman, etc. They
+                                also were some of the most brilliant people I've ever known. Then, like losing the ring
+                                (from Lord of the Ring) something unexpected happened. In any case, I felt
+                                compelled to relocate to Kansas City to meet the emergency. What enabled me to live
+                                here is Cerner. They have a great health care package, and plenty of work--you will
+                                never be bored if you work for them, and that was great. What I didn't realize when
+                                I went to the interview was how small a role programming would play. So I jumped
+                                on the GDIT ship. Again, great people, great company. However, of all the managers, team
+                                leads,
+                                and supervisors who loved me, I managed to find one man,
+                                whose title was merely co-worker, who decided I needed code reviews (which is true, I
+                                do like code reviews) and would work best
+                                in a team setting (also true), so he recommended that I be fired. Having had a
+                                non-contract position for 6 months does not make it easy to find employment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            However, it has
+                            been great being a student in the Full Stack course. I love it. The instructors are 
+                            seemingly omni-present, as they answer questions at all times of the day. They are knowledgeable,
+                            great communicators, patient, and also efficient, at the same time.  Anybody who takes
+                            this course will be prepared to be a Full Stack developer.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+PORTFOLIO.html. This uses Boostraps's 12-column system.
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
+
+<body class="container">
+    <nav class="navbar navbar-expand-md  navbar-light bg-light">
+        <a class="navbar-brand bg-info text-white" href="index.html">Mario Thompson</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myAwesomeInfo"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="myAwesomeInfo">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-item active" href="portfolio.html">Portfolio</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row mt-5">
+        <div class="col-12 col-md-8">
+
+            <div class="row">
+                <div class="col-12">
+                    <h2>
+                        Portfolio
+                    </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">LinkedIn</div>
+                        <div class="card-body">
+                            <h5 class="card-title">My LinkedIn Profile</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a class="btn btn-secondary btn-lg" target="_blank"
+                                href="https://www.linkedin.com/in/mario-thompson-991b8486/">LinkedIn Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Success card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a class="btn btn-secondary btn-lg" target="_blank" href="#">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Success card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a class="btn btn-secondary btn-lg" target="_blank" href="#">Download</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Success card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk
+                                of the card's content.</p>
+                            <a class="btn btn-secondary btn-lg" target="_blank" href="#">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Success card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a class="btn btn-secondary btn-lg" target="_blank" href="#">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- column 2 is space -->
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
+
+
+Contact.html. I used a card here.
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+</head>
+
+<body class="container">
+    <nav class="navbar navbar-expand-md   navbar-light bg-light">
+        <a class="navbar-brand bg-info text-white" href="index.html">Mario Thompson</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myAwesomeInfo"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="myAwesomeInfo">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-item active" href="portfolio.html">Portfolio</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row mt-5">
+        <div class="col-12 col-md-8">
+            <div class="card">
+                <h5 class="card-header">Contact</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <p>
+                                    Name
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Name"
+                                        aria-label="Search">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <p>
+                                    Email
+                                    <input class="form-control mr-sm-2" type="email" placeholder="Email"
+                                        aria-label="slim">
+
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-8 form-group">
+                                <label for="MessageArea">Message</label>
+                                <textarea class="form-control" id="MessageArea" placeholder="Message"
+                                    rows="3"></textarea>
+
+                            </div>
+                        </div>
+                    </form>
+
+                    <a href="#" class="btn btn-primary">Submit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
